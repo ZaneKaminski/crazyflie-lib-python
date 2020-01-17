@@ -40,6 +40,8 @@ TYPE_VELOCITY_WORLD = 1
 TYPE_ZDISTANCE = 2
 TYPE_HOVER = 5
 TYPE_POSITION = 7
+TYPE_RAW_MOTOR = 8
+TYPE_RAW_RATIO = 9
 
 
 class Commander():
@@ -141,4 +143,26 @@ class Commander():
         pk.port = CRTPPort.COMMANDER_GENERIC
         pk.data = struct.pack('<Bffff', TYPE_POSITION,
                               x, y, z, yaw)
+        self._cf.send_packet(pk)
+
+    def send_raw_motor(self, m1, m2, m3, m4):
+        """
+        FIXME: documentation
+        """
+        #FIXME: assert 0 <= m <= 65535
+        pk = CRTPPacket()
+        pk.port = CRTPPort.COMMANDER_GENERIC
+        pk.data = struct.pack('<BIIII', TYPE_RAW_MOTOR,
+                              m1, m2, m3, m4)
+        self._cf.send_packet(pk)
+
+    def send_raw_ratio(self, ratio):
+        """
+        FIXME: documentation
+        """
+        #FIXME: assert 0 <= ratio <= 1
+        pk = CRTPPacket()
+        pk.port = CRTPPort.COMMANDER_GENERIC
+        pk.data = struct.pack('<Bf', TYPE_RAW_RATIO,
+                              ratio)
         self._cf.send_packet(pk)
