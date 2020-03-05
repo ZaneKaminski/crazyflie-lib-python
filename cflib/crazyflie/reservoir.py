@@ -85,6 +85,29 @@ class ReservoirLoader():
                               i_res, i_output, i_neuron, weight)
         self._cf.send_packet(pk)
 
+    def set_input_weight_bytes(self, i_res, i_input, i_neuron, weight):
+        pk = CRTPPacket()
+        pk.port = CRTPPort.RESERVOIR
+        pk.data = struct.pack('<BBBBI', TYPE_SET_INPUT,
+                              i_res, i_input, i_neuron, weight)
+        self._cf.send_packet(pk)
+
+    def append_internal_weight_bytes(self, i_res, i_neuron_neuron,
+                                     i_neuron_out, i_neuron_in, weight):
+        pk = CRTPPacket()
+        pk.port = CRTPPort.RESERVOIR
+        pk.data = struct.pack('<BBHBBI', TYPE_APPEND_INTERNAL,
+                              i_res, i_neuron_neuron,
+                              i_neuron_out, i_neuron_in, weight)
+        self._cf.send_packet(pk)
+
+    def set_output_weight_bytes(self, i_res, i_output, i_neuron, weight):
+        pk = CRTPPacket()
+        pk.port = CRTPPort.RESERVOIR
+        pk.data = struct.pack('<BBBBI', TYPE_SET_OUTPUT,
+                              i_res, i_output, i_neuron, weight)
+        self._cf.send_packet(pk)
+
     def compute_checksum(self):
         pk = CRTPPacket()
         pk.port = CRTPPort.RESERVOIR
