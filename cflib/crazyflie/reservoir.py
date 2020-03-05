@@ -41,6 +41,7 @@ TYPE_SET_INPUT = 1
 TYPE_APPEND_INTERNAL = 2
 TYPE_SET_OUTPUT = 3
 TYPE_COMPUTE_CHECKSUM = 4
+TYPE_CLEAR = 5
 
 
 class ReservoirLoader():
@@ -112,4 +113,10 @@ class ReservoirLoader():
         pk = CRTPPacket()
         pk.port = CRTPPort.RESERVOIR
         pk.data = struct.pack('<B', TYPE_COMPUTE_CHECKSUM)
+        self._cf.send_packet(pk)
+
+    def clear(self):
+        pk = CRTPPacket()
+        pk.port = CRTPPort.RESERVOIR
+        pk.data = struct.pack('<B', TYPE_CLEAR)
         self._cf.send_packet(pk)
