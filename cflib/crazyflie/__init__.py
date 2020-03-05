@@ -50,6 +50,7 @@ from .mem import Memory
 from .param import Param
 from .platformservice import PlatformService
 from .toccache import TocCache
+from .reservoir import ReservoirLoader
 from cflib.crazyflie.high_level_commander import HighLevelCommander
 from cflib.utils.callbacks import Caller
 
@@ -117,6 +118,8 @@ class Crazyflie():
         self.param = Param(self)
         self.mem = Memory(self)
         self.platform = PlatformService(self)
+
+        self.reservoir = ReservoirLoader(self)
 
         self.link_uri = ''
 
