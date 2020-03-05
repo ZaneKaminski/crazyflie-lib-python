@@ -55,7 +55,7 @@ class ReservoirLoader():
         """
         self._cf = crazyflie
 
-    def alloc_res(self, i_res, size, connectivity):
+    def alloc_reservoir(self, i_res, size, connectivity):
         pk = CRTPPacket()
         pk.port = CRTPPort.RESERVOIR
         pk.data = struct.pack('<BBBH', TYPE_ALLOC_RES,
@@ -70,7 +70,7 @@ class ReservoirLoader():
         self._cf.send_packet(pk)
 
     def append_internal_weight(self, i_res, i_neuron_neuron,
-                             i_neuron_out, i_neuron_in, weight):
+                               i_neuron_out, i_neuron_in, weight):
         pk = CRTPPacket()
         pk.port = CRTPPort.RESERVOIR
         pk.data = struct.pack('<BBHBBf', TYPE_APPEND_INTERNAL,
